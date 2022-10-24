@@ -1,9 +1,10 @@
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class User(AbstractBaseUser):
+class User(AbstractUser):
     class UserTypes(models.TextChoices):
         DRIVER = 'DR', _('Driver')
         FINANCE_MANAGER = 'FM', _('Finance Manger')
