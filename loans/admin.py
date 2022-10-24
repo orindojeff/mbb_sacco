@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 from .models import (
-    loanApplication,
-    loanRepayment,
-    savings)
+    LoanApplication,
+    LoanRepayment,
+    Savings)
 
-admin.site.register(loanApplication)
-admin.site.register(loanRepayment)
-admin.site.register(savings)
+admin.site.register(LoanApplication)
+admin.site.register(LoanRepayment)
+admin.site.register(Savings)
 

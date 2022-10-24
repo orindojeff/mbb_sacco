@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class loanApplication(models.Model):
+class LoanApplication(models.Model):
     STATUS_CHOICE = (
         ('pending', 'Pending'),
         ('decline', 'Decline'),
@@ -15,12 +15,12 @@ class loanApplication(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICE)
 
 
-class savings(models.Model):
+class Savings(models.Model):
     amount = models.IntegerField()
     created_date = models.DateField(auto_now_add=True)
 
 
-class loanRepayment(models.Model):
+class LoanRepayment(models.Model):
     amount = models.IntegerField(20)
     created_date = models.DateField(auto_now_add=True)
     balance = models.IntegerField()
