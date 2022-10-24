@@ -8,7 +8,7 @@ def customer_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, lo
     redirects to the log-in page if necessary.
     """
     actual_decorator = user_passes_test(
-        lambda u: u.is_active and u.user_type == "CM",
+        lambda u: u.is_active and u.user_type == "CM" and not u.is_staff,
         login_url=login_url,
         redirect_field_name=redirect_field_name
     )
