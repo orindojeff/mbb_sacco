@@ -2,7 +2,7 @@ from django.db import models
 from accounts.models import User
 
 
-class Buyer(models.Model):
+class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=120, unique=True)
     address = models.CharField(max_length=220)
@@ -11,13 +11,13 @@ class Buyer(models.Model):
     def __str__(self):
         return self.name
 
-
-class Drop(models.Model):
-    name = models.CharField(max_length=120, unique=True)
-    created_date = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
+#
+# class Drop(models.Model):
+#     name = models.CharField(max_length=120, unique=True)
+#     created_date = models.DateField(auto_now_add=True)
+#
+#     def __str__(self):
+#         return self.name
 
 
 class Product(models.Model):
@@ -34,14 +34,13 @@ class Order(models.Model):
         ('pending', 'Pending'),
         ('decline', 'Decline'),
         ('approved', 'Approved'),
-        ('processing', 'Processing'),
+        ('out for delivery', 'Out for Delivery'),
         ('complete', 'Complete'),
     )
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     description = models.TextField(max_length=255)
-    buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE, null=True)
-    drop = models.ForeignKey(Drop, on_delete=models.CASCADE, null=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICE)
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
