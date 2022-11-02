@@ -9,4 +9,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', customer_required(TemplateView.as_view(template_name="index.html")), name="index"),
     path('', include('accounts.urls')),
+    path('', include('store.urls')),
 ]
