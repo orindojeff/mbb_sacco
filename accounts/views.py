@@ -6,6 +6,8 @@ from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
+
+from accounts.decorators import required_access
 from accounts.forms import CustomerSignUpForm, CustomerAuthenticationForm, RiderSignUpForm, RiderAuthenticationForm, \
     StaffLoginForm
 from accounts.models import User
@@ -52,22 +54,22 @@ class RiderLoginView(SuccessMessageMixin, LoginView):
 
 def staff_login_view(request):
     loginform = StaffLoginForm(request.POST or None)
-    msg = None
+    msg = ''
 
     if request.method == 'POST':
         if loginform.is_valid():
             username = loginform.cleaned_data.get('username')
             password = loginform.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None and request.user_type == "FM":
+            if user is not None and user.user_type == "FM":
                 login(request, user)
-                return redirect('finance-manager')
-            elif user is not None and request.user_cache.user_type == "SM":
+                return redirect('accounts:finance-manager')
+            elif user is not None and user.user_type == "SM":
                 login(request, user)
-                return redirect('sales-manger')
-            elif user is not None and request.user_cache.user_type == "DR":
+                return redirect('accounts:sales-manager')
+            elif user is not None and user.user_type == "DR":
                 login(request, user)
-                return redirect('driver')
+                return redirect('accounts:driver')
             else:
                 msg = 'invalid login credentials'
         else:
@@ -75,6 +77,7 @@ def staff_login_view(request):
     return render(request, 'accounts/staff-login.html', {'form': loginform, 'msg': msg})
 
 
+@required_access(login_url=reverse_lazy('accounts:staff-login'), user_type="SM")
 def sales_manager(request):
     return render(request, 'sales-manager.html')
 

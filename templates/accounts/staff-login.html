@@ -8,8 +8,8 @@
   </div>
   <form class="row g-3 " method="post">
     {% csrf_token %}
-
-    {% include 'components/form-errors.html' with form=form %}
+      <div class="text-danger">{{ msg }}</div>
+      {% include 'components/form-errors.html' with form=form %}
     {% include 'components/form.html' with form=form %}
 
     <div class="col-12">
