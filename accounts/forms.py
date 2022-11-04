@@ -51,7 +51,7 @@ class RiderAuthenticationForm(AuthenticationForm):
                 self.user_cache.user_type == "FM" or self.user_cache.user_type == "SM" or \
                 self.user_cache.user_type == "CM":
             logout(self.request)
-            raise forms.ValidationError('Invalid username or password for customer login', code='invalid login')
+            raise forms.ValidationError('Invalid username or password for rider login', code='invalid login')
 
 
 class FinanceManagerAuthenticationForm(AuthenticationForm):

@@ -17,7 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/mig" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (mbb_sacco)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (mbb_sacco)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="pixeden-stroke-7-icon" level="application" />
     <orderEntry type="library" name="flag-icon-css" level="application" />

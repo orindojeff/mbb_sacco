@@ -42,13 +42,13 @@ class RiderCreateView(SuccessMessageMixin, CreateView):
     form_class = RiderSignUpForm
     model = User
     success_message = "You've registered successfully"
-    success_url = reverse_lazy('rider-index')
+    success_url = reverse_lazy('rider')
 
 
 class RiderLoginView(SuccessMessageMixin, LoginView):
     template_name = 'accounts/rider-login.html'
     authentication_form = RiderAuthenticationForm
-    success_url = reverse_lazy('rider-index')
+    success_url = reverse_lazy('rider')
     success_message = "You've logged in successfully"
 
 
@@ -82,9 +82,16 @@ def sales_manager(request):
     return render(request, 'sales-manager.html')
 
 
+@required_access(login_url=reverse_lazy('accounts:staff-login'), user_type="FM")
 def finance_manager(request):
     return render(request, 'finance-manager.html')
 
 
+@required_access(login_url=reverse_lazy('accounts:staff-login'), user_type="DR")
 def driver(request):
     return render(request, 'driver.html')
+
+
+@required_access(login_url=reverse_lazy('accounts:rider-login'), user_type="rider")
+def rider(request):
+    return render(request, 'rider.html')

@@ -1,15 +1,19 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import ListView
 
+from accounts.decorators import required_access
 from .forms import ProductForm, DeliveryForm
 # # from users.models import User
-# from accounts.models import User
+
 
 from .models import (
     # Product,
-    Order, Customer, Product, Delivery,
+    Order, Product, Delivery, Customer,
 
 )
+
+
 # from .forms import (
 #     ProductForm,
 #     OrderForm,
@@ -19,53 +23,25 @@ from .models import (
 
 # Create your views here.
 # dashboard views
+@required_access(login_url=reverse_lazy('accounts:staff-login'), user_type="SM")
 def SM_dashboard(request):
     return render(request, 'dashboard/salesmanager-dashboard.html')
 
 
-#
-# # Buyer views
-# @login_required(login_url='login')
-# def create_buyer(request):
-#     forms = BuyerForm()
-#     if request.method == 'POST':
-#         forms = BuyerForm(request.POST)
-#         if forms.is_valid():
-#             name = forms.cleaned_data['name']
-#             address = forms.cleaned_data['address']
-#             email = forms.cleaned_data['email']
-#             username = forms.cleaned_data['username']
-#             password = forms.cleaned_data['password']
-#             retype_password = forms.cleaned_data['retype_password']
-#             if password == retype_password:
-#                 user = User.objects.create_user(
-#                     username=username, password=password,
-#                     email=email, is_buyer=True
-#                 )
-#                 Buyer.objects.create(user=user, name=name, address=address)
-#                 return redirect('buyer-list')
-#     context = {
-#         'form': forms
-#     }
-#     return render(request, 'store/create_buyer.html', context)
-#
-#
 class CustomerListView(ListView):
     model = Customer
     template_name = 'store/customer-list.html'
     context_object_name = 'customer'
 
 
-#
-# # Product views
-# @login_required(login_url='login')
+# #Product views
 def create_product(request):
     forms = ProductForm()
     if request.method == 'POST':
-        forms = ProductForm(request.POST)
+        forms = ProductForm(request.POST, request.FILES)
         if forms.is_valid():
             forms.save()
-            return redirect('product-list')
+            return redirect('store:product-list')
     context = {
         'form': forms
     }
@@ -110,10 +86,10 @@ class OrderListView(ListView):
     model = Order
     template_name = 'store/order-list.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['order'] = Order.objects.all().order_by('-id')
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['order'] = Order.objects.all().order_by('-id')
+    #     return context
 
 
 # # Delivery views

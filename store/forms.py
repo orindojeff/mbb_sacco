@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Product, Order, Delivery
+from .models import Product, Delivery
 
 
 class CustomerForm(forms.Form):
@@ -42,20 +42,29 @@ class CustomerForm(forms.Form):
     }))
 
 
-
-
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'sortno']
+        fields = ['name', 'sortno', 'image', 'price', 'quantity']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'name'
             }),
             'sortno': forms.NumberInput(attrs={
                 'class': 'form-control', 'id': 'sortno'
-            })
+            }),
+            'image': forms.FileInput(attrs={
+                'class': 'form-control', 'id': 'image'
+            }),
+            'price': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'price'
+            }),
+
+            'quantity': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'quantity'
+            }),
         }
+
 
 #
 # class OrderForm(forms.ModelForm):

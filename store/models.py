@@ -22,7 +22,10 @@ class Customer(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=120, unique=True)
-    sortno = models.PositiveIntegerField()
+    sortno = models.PositiveIntegerField(null=True)
+    price = models.IntegerField(null=True)
+    quantity = models.IntegerField(null=True)
+    image = models.ImageField(default='non')
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -54,3 +57,5 @@ class Delivery(models.Model):
 
     def __str__(self):
         return self.driver_name
+
+# class CartItems(models.Model):

@@ -3,6 +3,7 @@
 {% block title %}Create Product{% endblock title %}
 
 {% block breadcrumbs %}
+
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -40,7 +41,7 @@
                 <!-- Credit Card -->
                 <div id="pay-invoice">
                     <div class="card-body">
-                        <form action="#" method="post" novalidate="novalidate">
+                        <form action="#" method="post" novalidate="novalidate" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="name" class="control-label mb-1">Name</label>
@@ -50,6 +51,23 @@
                                 <label for="sortno" class="control-label mb-1">Sort No</label>
                                 {{ form.sortno }}
                             </div>
+
+                            <div class="form-group">
+                                <label for="price" class="control-label mb-1">Price</label>
+                                {{ form.price }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quantity" class="control-label mb-1">Quantity in Stock</label>
+                                {{ form.quantity }}
+                            </div>
+
+                            <div>
+
+                                {{ form.image}}
+                            </div><br>
+
+
                             <div>
                                 <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
                                     <span id="payment-button-amount">Create Product</span>

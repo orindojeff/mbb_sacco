@@ -44,6 +44,8 @@
                                 <th class="serial">#</th>
                                 <th>Name</th>
                                 <th>Sort No</th>
+                                <th>Price</th>
+                                <th>Quantity in Stock</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -54,6 +56,8 @@
                                 <td class="serial">{{ forloop.counter }}</td>
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.sortno }}</td>
+                                <td>{{ product.price}}</td>
+                                <td>{{ product.quantity }}</td>
                                 <td>{{ product.created_date }}</td>
                             </tr>
                             {% endfor %}
