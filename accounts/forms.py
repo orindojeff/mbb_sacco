@@ -1,7 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model, logout
-from django.forms import forms
+from django.forms import forms, ModelForm
 from django import forms
+
+from accounts.models import CustomerProfile, Customer
 
 User = get_user_model()
 
@@ -102,7 +104,16 @@ class StaffLoginForm(forms.Form):
             }
         )
     )
-    #
-    # class Meta:
-    #     model = User
-    #     fields = ('username', 'email', 'password1', 'password2', 'choices=UserTypes.choices,')
+
+
+class CustomerProfileForm(ModelForm):
+    class Meta:
+        model = CustomerProfile
+        fields = ['image', 'gender', 'phone_number']
+
+
+class CustomerForm(ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['last_name', 'first_name', 'email']
+

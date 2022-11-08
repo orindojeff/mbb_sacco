@@ -3,8 +3,14 @@ from django.views.generic import TemplateView
 
 from accounts import views
 from accounts.decorators import required_access
-from accounts.views import RiderCreateView, CustomerLoginView, LogoutView, RiderLoginView, UserCreateView, \
-    staff_login_view
+from accounts.views import (RiderCreateView,
+                            CustomerLoginView,
+                            LogoutView,
+                            RiderLoginView,
+                            UserCreateView,
+                            password_change,
+                            staff_login_view, customer_profile,
+                            )
 
 app_name = "accounts"
 
@@ -20,5 +26,9 @@ urlpatterns = [
     path('sales-manager/', views.sales_manager, name='sales-manager'),
     path('finance-manager/', views.finance_manager, name='finance-manager'),
     path('driver/', views.driver, name='driver'),
-    path('rider/', required_access(function=TemplateView.as_view(template_name="rider.html"), login_url=reverse_lazy('accounts:rider-login'), user_type="RD"), name="index"),
+    path('customer-profile', customer_profile, name='customer'),
+    path('change-password', password_change, name='change-password'),
+    path('customer-profile', customer_profile, name='customer-profile'),
+    path('rider/', required_access(function=TemplateView.as_view(template_name="rider.html"),
+                                   login_url=reverse_lazy('accounts:rider-login'), user_type="RD"), name="index"),
 ]

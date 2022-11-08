@@ -1,17 +1,20 @@
 # import form as form
 from django.contrib import messages
-from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 from django.views import View
+from django.contrib.auth.forms import PasswordChangeForm
 from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from accounts.decorators import required_access
 from accounts.forms import CustomerSignUpForm, CustomerAuthenticationForm, RiderSignUpForm, RiderAuthenticationForm, \
-    StaffLoginForm
-from accounts.models import User
+    StaffLoginForm, CustomerProfileForm, CustomerForm
+from accounts.models import User, CustomerProfile
 from django.urls import reverse_lazy
+
+from store.models import Order
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
@@ -92,6 +95,51 @@ def driver(request):
     return render(request, 'driver.html')
 
 
-@required_access(login_url=reverse_lazy('accounts:rider-login'), user_type="rider")
-def rider(request):
-    return render(request, 'rider.html')
+#Change password
+def password_change(request):
+    form = PasswordChangeForm(request.user)
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important
+            messages.success(request, 'Your password was successfully updated!')
+        else:
+            messages.info(request, 'Please correct the errors below.')
+    return render(request, 'accounts/change-password.html', {'form': form})
+
+
+#profile settings
+# def profile_main(request):
+#     p_form = FinanceProfileForm(instance=request.user.finance.financeprofile)
+#     form = FinanceForm(instance=request.user.finance)
+#     if request.method == "POST":
+#         p_form = FinanceProfileForm(request.POST, request.FILES, instance=request.user.finance.financeprofile)
+#         form = FinanceForm(request.POST, instance=request.user.finance)
+#         if form.is_valid() and p_form.is_valid():
+#             form.save()
+#             p_form.save()
+#             messages.success(request, "Your Profile has been updated!")
+#     context = {
+#         'p_form': p_form,
+#         'form': form,
+#     }
+#     return render(request, 'finance/forms/profile.html', context)
+
+
+def customer_profile(request):
+    profile, created = CustomerProfile.objects.get_or_create(user=request.user)
+    if request.method == "POST":
+        p_form = CustomerProfileForm(request.POST, request.FILES, instance=profile)
+        form = CustomerForm(request.POST, instance=request.user)
+    else:
+        p_form = CustomerProfileForm(instance=profile)
+        form = CustomerForm(instance=request.user)
+    # order = Order.objects.filter(customer=customer, is_active=True, completed=False).first()
+    context = {
+        'p_form': p_form,
+        'form': form,
+        # 'order': order
+    }
+    return render(request, 'accounts/profile.html', context)
+

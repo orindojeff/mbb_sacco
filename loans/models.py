@@ -3,16 +3,17 @@ from django.db import models
 
 class LoanApplication(models.Model):
     STATUS_CHOICE = (
-        ('pending', 'Pending'),
-        ('decline', 'Decline'),
-        ('approved', 'Approved'),
-        ('processing', 'Processing'),
+        ('pg', 'Pending'),
+        ('dc', 'Decline'),
+        ('ap', 'Approved'),
+        ('pr', 'Processing'),
     )
     amount = models.IntegerField(20)
     created_date = models.DateField(auto_now_add=True)
-    due_date = models.DateField()
-    limit = models.IntegerField()
-    status = models.CharField(max_length=10, choices=STATUS_CHOICE)
+    due_date = models.DateField(null=True)
+    limit = models.IntegerField(null=True)
+    purpose = models.TextField(null=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICE, default='Pending')
 
 
 class Savings(models.Model):

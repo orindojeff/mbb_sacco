@@ -1,15 +1,15 @@
 from django.db import models
 from accounts.models import User
 
-
-class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=120, unique=True)
-    address = models.CharField(max_length=220)
-    created_date = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
+#
+# class Customer(User):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     name = models.CharField(max_length=120, unique=True)
+#     address = models.CharField(max_length=220)
+#     created_date = models.DateField(auto_now_add=True)
+#
+#     def __str__(self):
+#         return self.name
 
 #
 # class Drop(models.Model):
@@ -27,23 +27,25 @@ class Product(models.Model):
     quantity = models.IntegerField(null=True)
     image = models.ImageField(default='non')
     created_date = models.DateField(auto_now_add=True)
+    brand = models.CharField(max_length=100, null=True)
 
     def __str__(self):
+
         return self.name
 
 
 class Order(models.Model):
     STATUS_CHOICE = (
-        ('pending', 'Pending'),
-        ('decline', 'Decline'),
-        ('approved', 'Approved'),
-        ('out for delivery', 'Out for Delivery'),
-        ('complete', 'Complete'),
+        ('pg', 'Pending'),
+        ('dc', 'Decline'),
+        ('ap', 'Approved'),
+        ('ofd', 'Out for Delivery'),
+        ('Dl', 'Delivered'),
     )
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     description = models.TextField(max_length=255)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICE)
+    # customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICE, default='pg')
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):

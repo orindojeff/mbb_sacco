@@ -9,8 +9,7 @@ from .forms import ProductForm, DeliveryForm
 
 from .models import (
     # Product,
-    Order, Product, Delivery, Customer,
-
+    Order, Product, Delivery,
 )
 
 
@@ -28,10 +27,10 @@ def SM_dashboard(request):
     return render(request, 'dashboard/salesmanager-dashboard.html')
 
 
-class CustomerListView(ListView):
-    model = Customer
-    template_name = 'store/customer-list.html'
-    context_object_name = 'customer'
+# class CustomerListView(ListView):
+#     model = Customer
+#     template_name = 'store/customer-list.html'
+#     context_object_name = 'customer'
 
 
 # #Product views
@@ -111,3 +110,8 @@ class DeliveryListView(ListView):
     model = Delivery
     template_name = 'store/delivery-list.html'
     context_object_name = 'delivery'
+
+
+def invoice(request):
+    return render(request, 'store/invoice.html')
+
