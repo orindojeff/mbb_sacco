@@ -8,11 +8,11 @@ from .models import (
 )
 
 
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = [ 'user', 'name', 'address', 'created_date' ]
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'sortno', 'price', 'quantity', 'image', 'created_date', 'brand')
 
 
 # admin.site.register(Customer, CustomerAdmin)
-admin.site.register(Product)
+admin.site.register(Product, ProductAdmin)
 admin.site.register(Order)
 admin.site.register(Delivery)

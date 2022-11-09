@@ -21,6 +21,9 @@ class User(AbstractUser):
     )
     email = models.EmailField()
 
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
@@ -64,7 +67,7 @@ class UserProfileManager(BaseUserManager):
 
 class Profile(models.Model):
     image = models.ImageField(upload_to='Users/Customers/profile_pictures/%Y/%m/',
-                              default="Users/profile_pictures/default.jpg")
+                              default="null")
     gender = models.CharField(
         choices=GENDER_TYPES,
         default='m',

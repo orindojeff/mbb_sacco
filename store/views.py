@@ -115,3 +115,7 @@ class DeliveryListView(ListView):
 def invoice(request):
     return render(request, 'store/invoice.html')
 
+
+def view_product(request):
+    products = Product.objects.all()
+    return render(request, 'store/view-products.html', {'products': products})

@@ -129,12 +129,14 @@ def password_change(request):
 
 def customer_profile(request):
     profile, created = CustomerProfile.objects.get_or_create(user=request.user)
+    p_form = CustomerProfileForm(instance=profile)
+    form = CustomerForm(instance=request.user)
     if request.method == "POST":
         p_form = CustomerProfileForm(request.POST, request.FILES, instance=profile)
         form = CustomerForm(request.POST, instance=request.user)
-    else:
-        p_form = CustomerProfileForm(instance=profile)
-        form = CustomerForm(instance=request.user)
+        p_form.save()
+        form.save()
+        messages.success(request, 'Profile has been updated successfully')
     # order = Order.objects.filter(customer=customer, is_active=True, completed=False).first()
     context = {
         'p_form': p_form,
