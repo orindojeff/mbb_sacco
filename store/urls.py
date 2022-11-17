@@ -3,16 +3,13 @@ from store import views
 from django.urls import path
 
 from .views import (
-    # create_buyer,
     create_product,
-    # create_order,
     create_delivery,
-    # CustomerListView,
     ProductListView,
     OrderListView,
     DeliveryListView,
-    invoice, view_product
-
+    invoice,
+    view_product,
 )
 
 app_name = "store"
@@ -31,6 +28,7 @@ urlpatterns = [
     path('order-list/', OrderListView.as_view(), name='order-list'),
     path('delivery-list/', DeliveryListView.as_view(), name='delivery-list'),
     path('view-products/', view_product, name='view-product'),
-
+    # path('cart-list/', cart_list, name="cart-list"),
+    # path('add-to-cart/<str:slug>/', add_to_cart, name="add-to-cart"),
 
 ]

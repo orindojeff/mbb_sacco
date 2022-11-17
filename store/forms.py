@@ -26,6 +26,7 @@ from .models import Product, Delivery
 #         'class': 'form-control',
 #         'id': 'username',
 #         'data-val': 'true',
+
 #         'data-val-required': 'Please enter username',
 #     }))
 #     password = forms.CharField(widget=forms.PasswordInput(attrs={

@@ -11,7 +11,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from accounts.decorators import required_access
 from accounts.forms import CustomerSignUpForm, CustomerAuthenticationForm, RiderSignUpForm, RiderAuthenticationForm, \
     StaffLoginForm, CustomerProfileForm, CustomerForm
-from accounts.models import User, CustomerProfile
+from accounts.models import User, CustomerProfile, Profile
 from django.urls import reverse_lazy
 
 from store.models import Order
@@ -143,5 +143,5 @@ def customer_profile(request):
         'form': form,
         # 'order': order
     }
-    return render(request, 'accounts/profile.html', context)
+    return render(request, 'accounts/profile.html',  context)
 

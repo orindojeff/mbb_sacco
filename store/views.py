@@ -1,15 +1,18 @@
+from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 
 from accounts.decorators import required_access
+from utils.utils import generate_key
 from .forms import ProductForm, DeliveryForm
 # # from users.models import User
 
 
 from .models import (
     # Product,
-    Order, Product, Delivery,
+    Order, Product, Delivery
 )
 
 

@@ -8,11 +8,19 @@
         {% for product in products %}
         <div class="col">
             <div class="card" style="width: 18rem;">
-                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="..."  class="btn view-btn add-to-cart-btn" >
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.price }}</p>
-                    <a href="#" class="btn btn-primary">Add to cart</a> <a href="#" class="btn btn-primary">View product</a>
+                    <p class="card-text">Ksh.{{ product.price }}</p>
+
+                    <div class="row row-sm">
+								<div class="col-6">
+									 <a href="#" class="btn btn-primary">Add to cart</a>
+								</div>
+								<div class="col-6">
+									<a href="#" class="btn btn-primary">View product</a>
+								</div>
+							</div>
                 </div>
             </div>
         </div>
