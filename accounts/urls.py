@@ -1,5 +1,6 @@
 from django.urls import path, reverse_lazy
 from django.views.generic import TemplateView
+from django.contrib.auth import views as auth_views
 
 from accounts import views
 from accounts.decorators import required_access

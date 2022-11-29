@@ -4,18 +4,19 @@ from .models import (
     # Customer,
     Product,
     Order,
-    Delivery
+    Delivery,
 )
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'sortno', 'price', 'quantity', 'image', 'created_date', 'brand')
+    list_display = ('name', 'sortno', 'price', 'quantity', 'image', 'created_date', 'description')
+
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('product', 'description', 'status', 'created_date', 'updated')
+    list_display = ('customer', 'completed','is_active', 'is_archived', 'created_date', 'updated')
 
 
 # admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Order,OrderAdmin)
+admin.site.register(Order, OrderAdmin)
 admin.site.register(Delivery)
